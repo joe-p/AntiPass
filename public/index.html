@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AntiPass</title>
+    <script src="dist/antipass.bundled.js"></script>
+</head>
+
+<body>
+  <div className="AntiPass">
+    <label for="site">Site: </label>
+    <input type="text" id="site"/>
+    <br/>
+
+    <label for="username">Username: </label>
+    <input type="text" id="username" value="get"/>
+    <br/>
+
+    <label for="passphrase">Passphrase: </label>
+    <input type="password" id="passphrase"/>
+    <br/>
+
+    <label for="length">Password Length: </label>
+    <input type="number" id="length" min="4"/>
+    <br/>
+    
+    <br/>
+    <button type="button" onClick="antipass.generateOutput()">Generate Password</button>
+    <br/>
+
+    <input type="text" id="output" readOnly/>
+  </div>
+
+  <script>
+    antipass.setDefaults()
+  </script>
+</body>

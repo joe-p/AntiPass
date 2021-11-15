@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "argon2-browser": "^1.18.0",
+    "base64-loader": "^1.0.0",
+    "webpack": "^5.64.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.1"
+  }
+}
