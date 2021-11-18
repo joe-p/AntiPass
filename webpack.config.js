@@ -15,7 +15,7 @@ module.exports = {
     entry: './src/antipass.js',
     output: {
         path: path.resolve(__dirname, 'public/dist'),
-        publicPath: 'public/',
+        publicPath: 'antipass/',
         filename: 'antipass.bundled.js',
         library: {
             name: 'antipass',
