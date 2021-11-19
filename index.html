@@ -20,8 +20,17 @@
     <input type="password" id="passphrase"/>
     <br/>
 
-    <label for="length">Password Length: </label>
+    <label for="length">Length*: </label>
     <input type="number" id="length" min="4"/>
+    <br/>
+    <br/>
+
+    <label>Output Type:<label>
+    <br/>
+    <label for="random">Random Password</label>
+    <input type="radio" id="random" value="random" name="output_type">
+    <label for="random">BIP39 Passphrase</label>
+    <input type="radio" id="bip39" value="bip39" name="output_type">
     <br/>
     
     <br/>
@@ -29,6 +38,13 @@
     <br/>
 
     <input type="text" id="output" readOnly/>
+    
+    <br/>
+    <br/>
+    
+    <div className="explanations">
+      * Length corresponds to number of characters in random password or number of words in BIP39 passphrase
+    </div>
   </div>
 
   <script>
