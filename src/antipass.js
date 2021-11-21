@@ -10,7 +10,9 @@ export function setDefaults() {
     const username = (new URL(document.location)).searchParams.get('username')
     const site = (new URL(document.location)).searchParams.get('site')
     const length = (new URL(document.location)).searchParams.get('length')
+    const type = (new URL(document.location)).searchParams.get('type')
 
+    document.getElementById(type).checked = true;
     document.getElementById('username').value = username
     document.getElementById('site').value = site
     document.getElementById('length').value = length
@@ -50,10 +52,8 @@ export async function generateOutput () {
     let length = document.getElementById('length').value
     
     if (outputType == 'bip39') {
-        length = length * 1.5
+        length = Math.ceil(length * 1.5)
     }
-
-    console.log(length)
 
     argon2.hash({
         pass: site + username,
@@ -69,7 +69,7 @@ export async function generateOutput () {
             else if (outputType == 'bip39') {
                 output = hexToBIP39Passphrase(h.hashHex)
             }
-            console.log(output.length)
+            
             document.getElementById("output").value = output
         })
         .catch(e => {
