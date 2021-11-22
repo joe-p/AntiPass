@@ -23,7 +23,6 @@
     <label for="length">Length*: </label>
     <input type="number" id="length" min="4"/>
     <br/>
-    <br/>
 
     <label>Output Type:<label>
     <br/>
@@ -32,9 +31,6 @@
     <label for="random">BIP39 Passphrase</label>
     <input type="radio" id="bip39" value="bip39" name="output_type">
     <br/>
-    
-    <br/>
-    <button type="button" onClick="antipass.generateOutput()">Generate Password</button>
     <br/>
 
     <input type="text" id="output" readOnly/>
@@ -48,6 +44,6 @@
   </div>
 
   <script>
-    antipass.setDefaults()
+    antipass.initialize()
   </script>
 </body>
