@@ -55,4 +55,7 @@ module.exports = {
             process: false,
         },
     },
+    optimization: {
+        minimize: false
+    },
 };
