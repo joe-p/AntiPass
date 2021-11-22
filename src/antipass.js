@@ -6,7 +6,9 @@ function capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
 }
 
-export function setDefaults() {
+export function initialize() {
+    document.getElementById('output').value = 'Passphrase too short'
+
     const username = (new URL(document.location)).searchParams.get('username')
     const site = (new URL(document.location)).searchParams.get('site')
     const length = (new URL(document.location)).searchParams.get('length')
@@ -16,6 +18,20 @@ export function setDefaults() {
     document.getElementById('username').value = username
     document.getElementById('site').value = site
     document.getElementById('length').value = length
+
+    const onInputIDs = [
+        'passphrase',
+        'random', 
+        'bip39',
+        'site',
+        'username',
+        'length'
+    ]
+
+    onInputIDs.forEach( (id) => {
+        document.getElementById(id).oninput = generateOutput
+    })
+    
 }
 
 export function hexToBIP39Passphrase (hex) {
@@ -43,9 +59,15 @@ export function hexToPassword (hex) {
 }
 
 export async function generateOutput () {
+    const passphrase = document.getElementById('passphrase').value
+
+    if(document.getElementById('passphrase').value.length < 8) {
+        document.getElementById("output").value = "Passphrase too short"
+        return
+    }
+    
     const site = document.getElementById('site').value
     const username = document.getElementById('username').value
-    const passphrase = document.getElementById('passphrase').value
     
     const outputType = document.querySelector('input[name="output_type"]:checked').value
 
@@ -73,11 +95,6 @@ export async function generateOutput () {
             document.getElementById("output").value = output
         })
         .catch(e => {
-            if (e.code === -6) {
-                alert("Passphrase is too short. It must have 8 or more characters.")
-            }
-            else {
-                alert("ERROR " + e.code + ": " + e.message)
-            }
+            alert("ERROR " + e.code + ": " + e.message)
         })
 }
