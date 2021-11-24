@@ -10,7 +10,7 @@ export function initialize() {
     document.getElementById('output').value = 'Passphrase too short'
 
     const username = (new URL(document.location)).searchParams.get('username') || ''
-    const site = (new URL(document.location)).searchParams.get('site') || ''
+    const service = (new URL(document.location)).searchParams.get('service') || ''
     const length = (new URL(document.location)).searchParams.get('length') || ''
     const type = (new URL(document.location)).searchParams.get('type') || ''
 
@@ -19,14 +19,14 @@ export function initialize() {
     }
     
     document.getElementById('username').value = username
-    document.getElementById('site').value = site
+    document.getElementById('service').value = service
     document.getElementById('length').value = length
 
     const onInputIDs = [
         'passphrase',
         'random', 
         'bip39',
-        'site',
+        'service',
         'username',
         'length'
     ]
@@ -69,7 +69,7 @@ export async function generateOutput () {
         return
     }
     
-    const site = document.getElementById('site').value
+    const service = document.getElementById('service').value
     const username = document.getElementById('username').value
     
     const outputType = document.querySelector('input[name="output_type"]:checked').value
@@ -81,7 +81,7 @@ export async function generateOutput () {
     }
 
     argon2.hash({
-        pass: site + username,
+        pass: service + username,
         salt: passphrase,
         hashLen: length,
         type: argon2.ArgonType.Argon2id
