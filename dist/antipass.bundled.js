@@ -503,6 +503,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "initialize": () => (/* binding */ initialize),
+/* harmony export */   "copyText": () => (/* binding */ copyText),
 /* harmony export */   "hexToBIP39Passphrase": () => (/* binding */ hexToBIP39Passphrase),
 /* harmony export */   "hexToPassword": () => (/* binding */ hexToPassword),
 /* harmony export */   "generateOutput": () => (/* binding */ generateOutput)
@@ -517,6 +518,7 @@ function capitalizeFirstLetter(string) {
 
 function initialize() {
     document.getElementById('output').value = 'Passphrase too short'
+    document.getElementById('url').value = ''
 
     const username = (new URL(document.location)).searchParams.get('username') || ''
     const service = (new URL(document.location)).searchParams.get('service') || ''
@@ -548,6 +550,18 @@ function initialize() {
         document.getElementById(id).oninput = generateOutput
     })
     
+    document.getElementById('output').addEventListener("click", copyText); 
+    document.getElementById('url').addEventListener("click", copyText); 
+
+}
+
+function copyText (res) {
+    console.log(res)
+
+    res.target.select();
+    res.target.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(res.target.value);
 }
 
 function hexToBIP39Passphrase (hex) {
@@ -584,6 +598,7 @@ async function generateOutput () {
     
     const service = document.getElementById('service').value
     const username = document.getElementById('username').value
+    const iteration = document.getElementById('iteration').value
     
     const outputType = document.querySelector('input[name="output_type"]:checked').value
 
@@ -609,6 +624,14 @@ async function generateOutput () {
             }
             
             document.getElementById("output").value = output
+            document.getElementById('url').value = 
+                window.location +
+                '?service=' + service + '&' +
+                'username=' + username + '&' +
+                'length=' + length + '&' +
+                'iteration=' + iteration + '&' +
+                'type=' + outputType
+
         })
         .catch(e => {
             alert("ERROR " + e.code + ": " + e.message)
