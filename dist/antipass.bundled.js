@@ -519,25 +519,29 @@ function initialize() {
     document.getElementById('output').value = 'Passphrase too short'
 
     const username = (new URL(document.location)).searchParams.get('username') || ''
-    const site = (new URL(document.location)).searchParams.get('site') || ''
+    const service = (new URL(document.location)).searchParams.get('service') || ''
     const length = (new URL(document.location)).searchParams.get('length') || ''
     const type = (new URL(document.location)).searchParams.get('type') || ''
+    const iteration = (new URL(document.location)).searchParams.get('iteration') || 1
 
     if (type) {
         document.getElementById(type).checked = true;
     }
     
     document.getElementById('username').value = username
-    document.getElementById('site').value = site
+    document.getElementById('service').value = service
     document.getElementById('length').value = length
+    document.getElementById('iteration').value = iteration
+
 
     const onInputIDs = [
         'passphrase',
         'random', 
         'bip39',
-        'site',
+        'service',
         'username',
-        'length'
+        'length',
+        'iteration'
     ]
 
     onInputIDs.forEach( (id) => {
@@ -578,7 +582,7 @@ async function generateOutput () {
         return
     }
     
-    const site = document.getElementById('site').value
+    const service = document.getElementById('service').value
     const username = document.getElementById('username').value
     
     const outputType = document.querySelector('input[name="output_type"]:checked').value
@@ -590,7 +594,7 @@ async function generateOutput () {
     }
 
     argon2.hash({
-        pass: site + username,
+        pass: service + username + iteration,
         salt: passphrase,
         hashLen: length,
         type: argon2.ArgonType.Argon2id
