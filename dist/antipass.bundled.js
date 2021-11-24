@@ -518,12 +518,15 @@ function capitalizeFirstLetter(string) {
 function initialize() {
     document.getElementById('output').value = 'Passphrase too short'
 
-    const username = (new URL(document.location)).searchParams.get('username')
-    const site = (new URL(document.location)).searchParams.get('site')
-    const length = (new URL(document.location)).searchParams.get('length')
-    const type = (new URL(document.location)).searchParams.get('type')
+    const username = (new URL(document.location)).searchParams.get('username') || ''
+    const site = (new URL(document.location)).searchParams.get('site') || ''
+    const length = (new URL(document.location)).searchParams.get('length') || ''
+    const type = (new URL(document.location)).searchParams.get('type') || ''
 
-    document.getElementById(type).checked = true;
+    if (type) {
+        document.getElementById(type).checked = true;
+    }
+    
     document.getElementById('username').value = username
     document.getElementById('site').value = site
     document.getElementById('length').value = length
