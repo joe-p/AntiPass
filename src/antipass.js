@@ -11,7 +11,7 @@ export function initialize() {
 
     const username = (new URL(document.location)).searchParams.get('username') || ''
     const service = (new URL(document.location)).searchParams.get('service') || ''
-    const length = (new URL(document.location)).searchParams.get('length') || ''
+    const length = (new URL(document.location)).searchParams.get('length') || 12
     const type = (new URL(document.location)).searchParams.get('type') || ''
     const iteration = (new URL(document.location)).searchParams.get('iteration') || 1
 
