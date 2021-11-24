@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>AntiPass</title>
     <script src="dist/antipass.bundled.js"></script>
+
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
 </head>
 
 <body>
@@ -20,8 +29,12 @@
     <input type="password" id="passphrase"/>
     <br/>
 
-    <label for="length">Length*: </label>
-    <input type="number" id="length" min="4"/>
+    <label for="length">Length: </label>
+    <input type="number" id="length" min="4"/ style="width: 3em">
+    <br/>
+
+    <label for="iteration">Iteration: </label>
+    <input type="number" id="iteration" min="1" style="width: 3em"/>
     <br/>
 
     <label>Output Type:<label>
@@ -38,9 +51,36 @@
     <br/>
     <br/>
     
-    <div className="explanations">
-      * Length corresponds to number of characters in random password or number of words in BIP39 passphrase
-    </div>
+    <table>
+      <tr>
+        <th>Field</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td>Service</td>
+        <td>The name of the service you want to generate a password for.</td>
+      </tr>
+      <tr>
+        <td>Username</td>
+        <td>The username used to login to the service.</td>
+      </tr>
+      <tr>
+        <td>Passphrase</td>
+        <td>Your AntiPass passphrase. This is used as the argon2id salt.</td>
+      </tr>
+      <tr>
+        <td>Length</td>
+        <td>For "Random Password" this is the amount of characters in the password. For "BIP39 Passphrase" this is the number of words in the passphrase.</td>
+      </tr>
+      <tr>
+        <td>Iteration</td>
+        <td>This field should start at 1 and then incremented each password change.</td>
+      </tr>
+      <tr>
+        <td>Output Type</td>
+        <td>"Random Password" generates a password composed of random printable characters. "BIP39 Passphrase" generates a passphrase using BIP39 words.</td>
+      </tr>
+    </table> 
   </div>
 
   <script>

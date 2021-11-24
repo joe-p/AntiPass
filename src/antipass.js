@@ -13,6 +13,7 @@ export function initialize() {
     const service = (new URL(document.location)).searchParams.get('service') || ''
     const length = (new URL(document.location)).searchParams.get('length') || ''
     const type = (new URL(document.location)).searchParams.get('type') || ''
+    const iteration = (new URL(document.location)).searchParams.get('iteration') || 1
 
     if (type) {
         document.getElementById(type).checked = true;
@@ -21,6 +22,8 @@ export function initialize() {
     document.getElementById('username').value = username
     document.getElementById('service').value = service
     document.getElementById('length').value = length
+    document.getElementById('iteration').value = iteration
+
 
     const onInputIDs = [
         'passphrase',
@@ -28,7 +31,8 @@ export function initialize() {
         'bip39',
         'service',
         'username',
-        'length'
+        'length',
+        'iteration'
     ]
 
     onInputIDs.forEach( (id) => {
@@ -81,7 +85,7 @@ export async function generateOutput () {
     }
 
     argon2.hash({
-        pass: service + username,
+        pass: service + username + iteration,
         salt: passphrase,
         hashLen: length,
         type: argon2.ArgonType.Argon2id
