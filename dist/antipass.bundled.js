@@ -519,6 +519,8 @@ function capitalizeFirstLetter(string) {
 function initialize() {
     document.getElementById('output').value = 'Passphrase too short'
     document.getElementById('url').value = ''
+    document.getElementById('passhash').value = 'Passphrase too short'
+
 
     const username = (new URL(document.location)).searchParams.get('username') || ''
     const service = (new URL(document.location)).searchParams.get('service') || ''
@@ -593,6 +595,8 @@ async function generateOutput () {
 
     if(document.getElementById('passphrase').value.length < 8) {
         document.getElementById("output").value = "Passphrase too short"
+        document.getElementById("passhash").value = "Passphrase too short"
+
         return
     }
     
@@ -607,6 +611,16 @@ async function generateOutput () {
     if (outputType == 'bip39') {
         length = Math.ceil(length * 1.5)
     }
+
+    argon2.hash({
+        pass: passphrase,
+        salt: passphrase,
+        type: argon2.ArgonType.Argon2id,
+        hashLen: 9
+    })
+    .then(h => {
+        document.getElementById("passhash").value = hexToBIP39Passphrase(h.hashHex)
+    })
 
     argon2.hash({
         pass: service + username + iteration,
